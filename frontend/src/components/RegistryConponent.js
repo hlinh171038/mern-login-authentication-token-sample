@@ -1,12 +1,31 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Button, FormGroup, Input, Label,Form } from 'reactstrap'
+import axios from 'axios'
+
 
 function RegistryConponent() {
+const [email,setEmail] = useState('')
+const [password,setPassword] = useState('')
+const [confirm,setConfirm] = useState('')
+
+
+const handleSubmit = async(e) =>{
+    e.preventDefault()
+    axios.post('http://localhost:5000/api/user/registry',{email,password})
+            .then(res=>{
+                console.log(res.data)
+            })
+            .catch(err=>{
+                console.log(err)
+            })
+   
+}
+
   return (
     <div className='d-flex justify-content-center'>
-    <Form className='bg-light p-3 mt-5'>
-    <FormGroup>
+    <Form className='bg-light p-3 mt-5' onSubmit= {handleSubmit}>
+    <FormGroup >
          <Label for="exampleEmail">
          Email
          </Label>
@@ -15,6 +34,8 @@ function RegistryConponent() {
          name="email"
          placeholder="email"
          type="email"
+         value={email}
+         onChange={e=>setEmail(e.target.value)}
          />
      </FormGroup>
      <FormGroup>
@@ -26,6 +47,8 @@ function RegistryConponent() {
          name="password"
          placeholder="password placeholder"
          type="password"
+         value={password}
+         onChange={e=>setPassword(e.target.value)}
          />
      </FormGroup>
      <FormGroup>

@@ -1,5 +1,6 @@
 import express from 'express'
 import mongoose from 'mongoose';
+import cors from 'cors'
 import dotenv from 'dotenv'
 //models
 import User from './models/User.js';
@@ -14,16 +15,13 @@ mongoose.connect(process.env.DB_CONNECT,{useNewUrlParser:true})
     console.log(error.message)
 })
 // middleware
+app.use(cors())
 app.use(express.json());
 // post user 
 app.post('/api/user/registry',async(req,res)=>{
-
-    const userDoc = await new User({
-        name:req.body.name,
-        email:req.body.email,
-        password:req.body.password
-    })
-    res.send('registry');
+    const {email,password} = req.body;
+    const userDoc = await User.create({email,password});
+    res.json(userDoc)
 })
 
 
