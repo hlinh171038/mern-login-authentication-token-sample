@@ -15,9 +15,12 @@ const handleSubmit = async(e) =>{
     axios.post('http://localhost:5000/api/user/registry',{email,password})
             .then(res=>{
                 console.log(res.data)
+                window.alert('post is successfully')
             })
             .catch(err=>{
                 console.log(err)
+                window.alert('post is failiure')
+
             })
    
 }

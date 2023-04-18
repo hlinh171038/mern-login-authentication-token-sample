@@ -2,6 +2,10 @@ import express from 'express'
 import mongoose from 'mongoose';
 import cors from 'cors'
 import dotenv from 'dotenv'
+import bcrypt from 'bcrypt'
+
+const salt = bcrypt.genSaltSync(10);
+
 //models
 import User from './models/User.js';
 const app = express() 
@@ -20,10 +24,18 @@ app.use(express.json());
 // post user 
 app.post('/api/user/registry',async(req,res)=>{
     const {email,password} = req.body;
-    const userDoc = await User.create({email,password});
+    const userDoc = await User.create({
+        email,
+        password:bcrypt.hashSync(password,salt)
+    });
     res.json(userDoc)
 })
 
+app.post('/api/user/login',async(req,res)=>{
+    const {email,password} = req.body;
+    const userDoc = await User.findOne({email})
+    res.json(userDoc)
+})
 
 app.listen(5000,()=>{
     console.log('this app is running in port 50000')

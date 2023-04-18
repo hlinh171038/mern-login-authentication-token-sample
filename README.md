@@ -1,4 +1,5 @@
-4. connect to data
- 1. set up server api
- 2. connect to mongo db
- 3. try post to data 
+5.post to data
+    1. create post interface ( registry)
+    2. post (server)
+
+// bcrypt // hash password
