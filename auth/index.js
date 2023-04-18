@@ -8,6 +8,7 @@ const salt = bcrypt.genSaltSync(10);
 
 //models
 import User from './models/User.js';
+import { generatetoken } from './utils.js';
 const app = express() 
 dotenv.config()
 //connect to db
@@ -34,7 +35,17 @@ app.post('/api/user/registry',async(req,res)=>{
 app.post('/api/user/login',async(req,res)=>{
     const {email,password} = req.body;
     const userDoc = await User.findOne({email})
-    res.json(userDoc)
+    const comparePass = bcrypt.compareSync(password,userDoc.password)
+    if(comparePass){
+        res.send({
+            _id:userDoc._id,
+            email:userDoc.email,
+            password:userDoc.password,
+            token:generatetoken(userDoc),
+        })
+        return ;
+    }
+    res.send('wrong password')
 })
 
 app.listen(5000,()=>{

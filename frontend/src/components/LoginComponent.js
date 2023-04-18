@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { Button, FormGroup, Input, Label,Form } from 'reactstrap'
 import Login from '../pages/Login'
 import axios from 'axios'
@@ -7,12 +7,14 @@ import axios from 'axios'
 function LoginComponent() {
     const [email,setEmail] = useState('')
     const [password,setPassword] = useState('')
+    const navigate = useNavigate()
 
 const login = (e)=>{
     e.preventDefault()
     axios.post('http://localhost:5000/api/user/login',{email,password})
         .then(res=>{
             console.log(res.data)
+            navigate('/')
         })
         .catch(err=>{
             console.log(err)
@@ -45,7 +47,7 @@ const login = (e)=>{
             placeholder="password placeholder"
             type="password"
             value={password}
-            onChange={e=>setPassword(e.target.password)}
+            onChange={e=>setPassword(e.target.value)}
             />
         </FormGroup>
         <Button type="submit">Login</Button>

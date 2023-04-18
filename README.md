@@ -1,5 +1,6 @@
-5.post to data
-    1. create post interface ( registry)
-    2. post (server)
+6.login 
+    1. post to data 
+    2.check condition
 
 // bcrypt // hash password
+// jwt (jsonwebtoken)
