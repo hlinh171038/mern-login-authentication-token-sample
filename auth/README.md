@@ -9,3 +9,4 @@
  //database (mongo db)
  username: 19mernLogin
  password: AD7zTTCSKtU1jcAI
+ mongodb+srv://<username>:<password>@cluster0.xo15b4l.mongodb.net/?retryWrites=true&w=majority
